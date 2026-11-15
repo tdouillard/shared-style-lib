@@ -1,0 +1,11 @@
+/* Gouache – the whole design system. Import this single file:
+     import "shared-style-lib/gouache/styles.css";
+   or in plain HTML: <link rel="stylesheet" href="…/shared-style-lib/gouache/src/css/index.css"> */
+@import "./tokens.css";
+@import "./base.css";
+@import "./surfaces.css";
+@import "./button.css";
+@import "./form.css";
+@import "./nav.css";
+@import "./scroll.css";
+@import "./feedback.css";

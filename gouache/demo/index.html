@@ -1,0 +1,134 @@
+<!doctype html>
+<!-- Gouache demo: every component in plain HTML + CSS. Open this file in a browser (no server, no build). -->
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gouache – components</title>
+  <link rel="stylesheet" href="../src/css/index.css">
+  <style>
+    /* page layout of the demo only */
+    body { padding: 22px; }
+    .demo { max-width: 920px; margin: 0 auto; }
+    .demo section { margin-bottom: 26px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body class="g-page">
+<div class="demo">
+
+  <header class="g-bar g-cluster--between" style="height:52px;padding:0 20px;margin-bottom:22px">
+    <strong class="g-cluster"><span class="g-mark"></span> Gouache</strong>
+    <span class="g-cluster">
+      <span><span class="g-dot"></span>Online</span>
+      <button class="g-btn g-btn--sm g-btn--icon" id="theme" aria-label="Toggle theme">☀️</button>
+    </span>
+  </header>
+
+  <section>
+    <h3 class="g-label">Buttons</h3>
+    <div class="g-card g-cluster g-cluster--loose">
+      <button class="g-btn">Default</button>
+      <button class="g-btn g-btn--primary">Primary</button>
+      <button class="g-btn g-btn--ok">Ok</button>
+      <button class="g-btn g-btn--danger">Danger</button>
+      <button class="g-btn g-btn--info">Info</button>
+      <button class="g-btn g-btn--violet">Violet</button>
+      <button class="g-btn is-on" id="toggle">Toggled (is-on)</button>
+      <button class="g-btn" disabled>Disabled</button>
+      <button class="g-btn g-btn--sm">Small</button>
+      <button class="g-btn g-btn--lg">Large</button>
+      <button class="g-btn g-btn--icon">🔊</button>
+      <button class="g-btn g-btn--round g-btn--violet" aria-label="Play">▶</button>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div>
+      <h3 class="g-label">Rows</h3>
+      <div class="g-row g-row--clickable is-selected"><div class="g-row__name">Selected row<div class="g-row__sub">Pressed in, with a lit LED</div></div><button class="g-btn g-btn--danger">Disconnect</button></div>
+      <div class="g-row g-row--clickable"><div class="g-row__name">Normal row<div class="g-row__sub">Raised</div></div><button class="g-btn g-btn--ok">Connect</button></div>
+    </div>
+    <div>
+      <h3 class="g-label">Wells, tags, alerts</h3>
+      <div class="g-card">
+        <div class="g-well"><b>Alex</b> in #general<small>21:02</small><br>A pressed inset area</div>
+        <p class="g-cluster">
+          <span class="g-tag">Default</span><span class="g-tag g-tag--ok">ok</span><span class="g-tag g-tag--warn">warn</span><span class="g-tag g-tag--bad">bad</span><span class="g-tag g-tag--info">info</span><span class="g-tag g-tag--violet">violet</span>
+        </p>
+        <div class="g-alert">Something went wrong.</div>
+        <div class="g-alert g-alert--warn" style="margin:0">Heads up.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3 class="g-label">Form controls</h3>
+    <div class="g-card g-stack">
+      <div class="g-cluster"><input class="g-input g-grow" placeholder="🔍 Filter…"><select class="g-select"><option>Auto-detect</option><option>Speakers</option></select></div>
+      <div class="g-cluster"><input class="g-range g-grow" type="range" id="range" value="42"><span class="g-pct" id="pct">42%</span></div>
+      <div class="g-cluster g-cluster--loose">
+        <label class="g-checklabel"><input type="checkbox" class="g-check" checked> Checked</label>
+        <label class="g-checklabel"><input type="checkbox" class="g-check"> Unchecked</label>
+        <label class="g-checklabel"><input type="radio" class="g-check" name="r" checked> Radio</label>
+        <button class="g-switch" role="switch" aria-checked="true" aria-label="Switch" id="sw"></button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3 class="g-label">Navigation</h3>
+    <div class="g-card g-stack">
+      <div class="g-tabs" style="height:62px">
+        <button class="g-tab is-active"><span class="g-tab__icon">🔊</span>Audio</button>
+        <button class="g-tab"><span class="g-tab__icon">🎧</span>Bluetooth</button>
+        <button class="g-tab"><span class="g-tab__icon">💬</span>Discord</button>
+      </div>
+      <div class="g-cluster"><button class="g-chip is-active">All</button><button class="g-chip">Apps</button><button class="g-chip">Windows</button></div>
+      <div class="g-segmented"><button class="is-active">🔊 Voice</button><button>💬 Messages (4)</button></div>
+    </div>
+  </section>
+
+  <section>
+    <h3 class="g-label">Scroll list with on-screen rail</h3>
+    <div class="g-card" style="height:230px;display:flex">
+      <div class="g-scroll">
+        <div class="g-scroll__body">
+          <div class="g-row"><div class="g-row__name">Item 1</div></div>
+          <div class="g-row"><div class="g-row__name">Item 2</div></div>
+          <div class="g-row"><div class="g-row__name">Item 3</div></div>
+          <div class="g-row"><div class="g-row__name">Item 4</div></div>
+        </div>
+        <div class="g-scroll__rail">
+          <button class="g-scroll__btn g-scroll__btn--up" aria-label="Up"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 5l4 4 4-4"/></svg></button>
+          <div class="g-scroll__track"><div class="g-scroll__thumb" style="top:0;height:70px"></div></div>
+          <button class="g-scroll__btn" aria-label="Down"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 5l4 4 4-4"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <p class="g-hint">Static markup. In React use <code>&lt;ScrollList&gt;</code>, which wires the buttons and the thumb.</p>
+  </section>
+
+  <section>
+    <h3 class="g-label">Key / value, code, log</h3>
+    <div class="g-card">
+      <div class="g-kv"><span>PC agent URL</span><span><code>http://192.168.1.20:4000</code></span><span>Token</span><span><code>7f3a9c1e2b8d4f60</code></span></div>
+      <pre class="g-log g-mt-2">21:04:11  PC agent connected
+21:04:15  Default output: Speakers (Realtek)</pre>
+    </div>
+  </section>
+</div>
+
+<script>
+  // The only JavaScript the CSS needs: a data-theme attribute and the --v of a range slider.
+  const root = document.documentElement, themeBtn = document.getElementById('theme');
+  themeBtn.onclick = () => { const light = root.dataset.theme === 'dark'; root.dataset.theme = light ? 'light' : 'dark'; themeBtn.textContent = light ? '🌙' : '☀️'; };
+  const range = document.getElementById('range'), pct = document.getElementById('pct');
+  const fill = () => { range.style.setProperty('--v', range.value + '%'); pct.textContent = range.value + '%'; };
+  range.oninput = fill; fill();
+  const sw = document.getElementById('sw'); sw.onclick = () => sw.setAttribute('aria-checked', sw.getAttribute('aria-checked') !== 'true');
+  const tg = document.getElementById('toggle'); tg.onclick = () => tg.classList.toggle('is-on');
+</script>
+</body>
+</html>

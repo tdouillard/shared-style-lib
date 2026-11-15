@@ -1,0 +1,107 @@
+/* =====================================================================
+   GOUACHE – feedback: tag, alert, banner, status dot, spinner
+   ===================================================================== */
+
+/* ---------- tag / status pill (pressed, tinted text) ---------- */
+.g-tag {
+  display: inline-block;
+  padding: 3px 11px;
+  border-radius: var(--g-r-pill);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--g-mute);
+  background: var(--g-press-bg);
+  box-shadow: var(--g-press-sm);
+}
+.g-tag--ok {
+  color: var(--g-ok);
+}
+.g-tag--warn {
+  color: var(--g-warn);
+}
+.g-tag--bad {
+  color: var(--g-bad);
+}
+.g-tag--info {
+  color: var(--g-info);
+}
+.g-tag--violet {
+  color: var(--g-violet);
+}
+
+/* ---------- alert: error / notice message (pressed, coloured text) ---------- */
+.g-alert {
+  margin-bottom: 10px;
+  padding: 8px 14px;
+  border-radius: var(--g-r-md);
+  font-size: 13px;
+  background: var(--g-press-bg);
+  box-shadow: var(--g-press-sm);
+  color: var(--g-bad);
+}
+.g-alert--warn {
+  color: var(--g-warn);
+}
+
+/* connection-lost banner under the header */
+.g-banner {
+  margin: 10px 18px 0;
+  padding: 7px 14px;
+  border-radius: var(--g-r-md);
+  font-size: 13px;
+  color: var(--g-warn);
+  background: var(--g-press-bg);
+  box-shadow: var(--g-press-sm);
+}
+
+/* ---------- status dot ---------- */
+.g-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 7px;
+  border-radius: 50%;
+  background: var(--g-ok);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--g-ok) 22%, transparent);
+}
+.g-dot--off {
+  background: var(--g-bad);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--g-bad) 22%, transparent);
+}
+.g-dot--live {
+  background: var(--g-bad);
+  animation: g-pulse 1.4s infinite;
+}
+@keyframes g-pulse {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* ---------- spinner ---------- */
+.g-spinner {
+  display: inline-block;
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--g-accent);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: g-spin 0.8s linear infinite;
+}
+@keyframes g-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* brand mark */
+.g-mark {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--g-accent), var(--g-accent-2));
+  box-shadow: 2px 2px 5px var(--g-lo), -2px -2px 4px var(--g-hi);
+}

@@ -1,0 +1,178 @@
+/* =====================================================================
+   GOUACHE – base: reset, page, painted backdrop, typography
+   ===================================================================== */
+
+/* Procedural textures, inlined so nothing has to be fetched (works offline on the Pi) */
+:root {
+  --g-grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  --g-wash: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='400'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.006 .016' numOctaves='4' seed='9' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+body {
+  font-family: var(--g-font);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--g-text);
+  background: var(--g-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Kiosk / touch: no text selection or tap flash. Opt back in with .g-selectable */
+.g-touch,
+.g-touch * {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.g-selectable {
+  user-select: text;
+}
+
+/* ---------- page: a themed, positioned canvas ---------- */
+.g-page {
+  position: relative;
+  isolation: isolate;
+  color: var(--g-text);
+  background: var(--g-bg);
+}
+
+/* Canvas grain, under all content but above the backdrop */
+.g-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--g-grain);
+  mix-blend-mode: overlay;
+  opacity: 0.1;
+}
+
+/* ---------- painted backdrop (see backdrop.ts) ---------- */
+.g-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: var(--g-backdrop-opacity);
+}
+.g-backdrop--fixed {
+  position: fixed;
+}
+.g-backdrop svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+/* low-frequency colour wash: varies tone inside planes, like thinned paint */
+.g-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--g-wash);
+  mix-blend-mode: soft-light;
+  opacity: 0.3;
+}
+
+/* ---------- typography ---------- */
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 600;
+}
+.g-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 var(--g-s-4);
+}
+/* small uppercase section label */
+.g-label {
+  margin: 0 0 10px 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--g-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+.g-muted {
+  color: var(--g-mute);
+  font-size: 13px;
+}
+.g-hint {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--g-mute);
+  margin: var(--g-s-2) 2px 0;
+}
+.g-code,
+code {
+  font-family: var(--g-font-mono);
+  font-size: 0.92em;
+  padding: 2px 8px;
+  border-radius: 8px;
+  word-break: break-all;
+  background: var(--g-press-bg);
+  box-shadow: var(--g-press-sm);
+}
+
+/* ---------- small utilities (replace inline styles) ---------- */
+.g-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--g-s-2);
+}
+.g-cluster--tight {
+  gap: 6px;
+}
+.g-cluster--loose {
+  gap: 10px;
+}
+.g-cluster--end {
+  justify-content: flex-end;
+}
+.g-cluster--between {
+  justify-content: space-between;
+}
+.g-cluster--nowrap {
+  flex-wrap: nowrap;
+}
+.g-grow {
+  flex: 1;
+  min-width: 0;
+}
+.g-stack > * + * {
+  margin-top: var(--g-s-3);
+}
+.g-mt-1 {
+  margin-top: var(--g-s-2);
+}
+.g-mt-2 {
+  margin-top: var(--g-s-3);
+}
+.g-mt-3 {
+  margin-top: var(--g-s-4);
+}
+.g-hidden {
+  display: none !important;
+}
+.g-ellipsis {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

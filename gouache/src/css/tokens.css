@@ -1,0 +1,113 @@
+/* =====================================================================
+   GOUACHE – design tokens
+   ---------------------------------------------------------------------
+   Two themes, selected with a `data-theme` attribute on <html> or on any
+   container ("dark" is the default). Everything else in the system reads
+   these variables, so a new theme only has to redefine the colour block.
+
+   Depth model (neumorphism): every surface shares the page colour
+   (--g-bg). Depth comes only from two shadows, light from the top-left:
+     raised  = outer dual shadow   (bars, cards, buttons, knobs)
+     pressed = inset dual shadow   (selected items, grooves, wells, toggles)
+   ===================================================================== */
+
+/* ---------- colour: dark (default) ---------- */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --g-bg: #27243f;
+  --g-text: #f1ecf4;
+  --g-mute: #a9a2c0;
+
+  --g-accent: #5fd6c0;
+  --g-accent-2: #f59a78;
+  --g-ok: #5fdc94;
+  --g-bad: #f2667a;
+  --g-warn: #f1c76a;
+  --g-info: #7078ea;
+  --g-violet: #a47bff;
+
+  --g-on-accent: #07211c;
+  --g-on-ok: #07211c;
+  --g-on-bad: #2b0a12;
+  --g-on-info: #ffffff;
+  --g-on-violet: #ffffff;
+
+  --g-lo: rgba(6, 4, 16, 0.7); /* shadow, bottom-right */
+  --g-hi: rgba(120, 108, 180, 0.2); /* highlight, top-left */
+  --g-glow: rgba(95, 214, 192, 0.6);
+  --g-backdrop-opacity: 0.4;
+}
+
+/* ---------- colour: light ---------- */
+[data-theme="light"] {
+  color-scheme: light;
+  --g-bg: #e7e0e6;
+  --g-text: #25213a;
+  --g-mute: #6a6384;
+
+  --g-accent: #1c8a7a;
+  --g-accent-2: #d9654a;
+  --g-ok: #2f9a62;
+  --g-bad: #d3455a;
+  --g-warn: #9a6a00;
+  --g-info: #5b63d6;
+  --g-violet: #7a5bff;
+
+  --g-on-accent: #ffffff;
+  --g-on-ok: #ffffff;
+  --g-on-bad: #ffffff;
+  --g-on-info: #ffffff;
+  --g-on-violet: #ffffff;
+
+  --g-lo: rgba(112, 92, 134, 0.36);
+  --g-hi: rgba(255, 255, 255, 0.95);
+  --g-glow: rgba(28, 138, 122, 0.5);
+  --g-backdrop-opacity: 0.3;
+}
+
+/* ---------- shape, depth, type (re-resolved per themed element) ----------
+   Declared on every themed element, because custom properties that use
+   var() are resolved where they are declared: a nested [data-theme] must
+   recompute the shadows with its own --g-lo / --g-hi. */
+:root,
+[data-theme] {
+  /* density: 1 = comfortable (touch / desktop), lower = flatter, for tiny screens */
+  --g-depth: 1;
+
+  --g-raise-bg: linear-gradient(145deg, color-mix(in srgb, var(--g-bg) 90%, #fff), color-mix(in srgb, var(--g-bg) 95%, #000));
+  --g-press-bg: linear-gradient(145deg, color-mix(in srgb, var(--g-bg) 95%, #000), color-mix(in srgb, var(--g-bg) 92%, #fff));
+
+  --g-raise: calc(8px * var(--g-depth)) calc(8px * var(--g-depth)) calc(18px * var(--g-depth)) var(--g-lo), calc(-7px * var(--g-depth)) calc(-7px * var(--g-depth)) calc(16px * var(--g-depth)) var(--g-hi);
+  --g-raise-sm: calc(5px * var(--g-depth)) calc(5px * var(--g-depth)) calc(10px * var(--g-depth)) var(--g-lo), calc(-4px * var(--g-depth)) calc(-4px * var(--g-depth)) calc(9px * var(--g-depth)) var(--g-hi);
+  --g-press: inset calc(5px * var(--g-depth)) calc(5px * var(--g-depth)) calc(10px * var(--g-depth)) var(--g-lo), inset calc(-5px * var(--g-depth)) calc(-5px * var(--g-depth)) calc(10px * var(--g-depth)) var(--g-hi);
+  --g-press-sm: inset calc(3px * var(--g-depth)) calc(3px * var(--g-depth)) calc(7px * var(--g-depth)) var(--g-lo), inset calc(-3px * var(--g-depth)) calc(-3px * var(--g-depth)) calc(7px * var(--g-depth)) var(--g-hi);
+
+  --g-r-sm: 11px;
+  --g-r-md: 14px;
+  --g-r-lg: 18px;
+  --g-r-xl: 22px;
+  --g-r-pill: 999px;
+
+  --g-s-1: 4px;
+  --g-s-2: 8px;
+  --g-s-3: 12px;
+  --g-s-4: 16px;
+  --g-s-5: 24px;
+
+  --g-font: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --g-font-mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+
+  --g-tap: 40px; /* minimum touch target */
+}
+
+/* Tiny resistive touch screens (3.5" 480x320): flatter shadows, they cost paint time and eat space */
+@media (max-width: 640px), (max-height: 400px) {
+  :root,
+  [data-theme] {
+    --g-depth: 0.6;
+    --g-r-xl: 18px;
+    --g-r-lg: 14px;
+    --g-tap: 40px;
+  }
+}

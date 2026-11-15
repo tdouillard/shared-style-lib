@@ -1,0 +1,134 @@
+/* =====================================================================
+   GOUACHE – scroll list with an on-screen rail
+   For touch screens that cannot drag-scroll (resistive panels): a raised
+   up / down button pair and a draggable thumb in an engraved track.
+   Markup is produced by <ScrollList> (react) or by hand, see README.
+   ===================================================================== */
+
+.g-scroll {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 6px;
+}
+.g-scroll__body {
+  flex: 1;
+  min-width: 0;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  /* room for the shadows of the items, which would otherwise be clipped */
+  padding: 4px 10px 20px 6px;
+  margin: -4px -10px -20px -6px;
+}
+.g-scroll__body::-webkit-scrollbar {
+  display: none;
+}
+.g-scroll__fade {
+  position: absolute;
+  left: 0;
+  right: 44px;
+  bottom: 0;
+  height: 26px;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 2px;
+  font-size: 11px;
+  color: var(--g-mute);
+  pointer-events: none;
+  background: linear-gradient(transparent, var(--g-bg) 85%);
+}
+.g-scroll__fade.is-on {
+  display: flex;
+}
+
+.g-scroll__rail {
+  width: 34px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--g-s-2);
+  padding: 2px 0 8px;
+  transition: opacity 0.2s;
+}
+.g-scroll__rail.is-off {
+  opacity: 0.35;
+}
+.g-scroll__btn {
+  width: 32px;
+  height: 34px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: var(--g-r-sm);
+  color: var(--g-mute);
+  cursor: pointer;
+  background: var(--g-raise-bg);
+  box-shadow: var(--g-raise-sm);
+}
+.g-scroll__btn:active {
+  color: var(--g-accent);
+  background: var(--g-press-bg);
+  box-shadow: var(--g-press-sm);
+}
+.g-scroll__btn--up svg {
+  transform: rotate(180deg);
+}
+.g-scroll__track {
+  flex: 1;
+  width: 10px;
+  position: relative;
+  border-radius: 5px;
+  box-shadow: var(--g-press-sm);
+  touch-action: none;
+}
+/* the thumb is visually slim, but its invisible side padding makes it an easy touch target */
+.g-scroll__thumb {
+  position: absolute;
+  left: -9px;
+  right: -9px;
+  min-height: 28px;
+  cursor: grab;
+  touch-action: none;
+}
+.g-scroll__thumb::before {
+  content: "";
+  position: absolute;
+  inset: 0 6px;
+  border-radius: var(--g-r-pill);
+  background: linear-gradient(180deg, var(--g-accent), var(--g-accent-2));
+  box-shadow: var(--g-raise-sm);
+}
+
+/* horizontal variant: a slider that scrolls a row of items (see <HScrollBar>) */
+.g-hscroll {
+  position: relative;
+  flex: none;
+  height: 10px;
+  margin: 14px 16px 12px;
+  border-radius: 5px;
+  box-shadow: var(--g-press-sm);
+  touch-action: none;
+}
+.g-hscroll.is-off {
+  opacity: 0.35;
+}
+.g-hscroll__thumb {
+  position: absolute;
+  top: -9px;
+  bottom: -9px;
+  cursor: grab;
+  touch-action: none;
+}
+.g-hscroll__thumb::before {
+  content: "";
+  position: absolute;
+  inset: 6px 0;
+  border-radius: var(--g-r-pill);
+  background: linear-gradient(90deg, var(--g-accent), var(--g-accent-2));
+  box-shadow: var(--g-raise-sm);
+}

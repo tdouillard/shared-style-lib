@@ -1,0 +1,41 @@
+{
+  "name": "shared-style-lib",
+  "version": "0.1.0",
+  "description": "Shared style libraries. Currently ships Gouache, a painterly neumorphic design system (CSS tokens + components, framework-agnostic, with optional React bindings).",
+  "type": "module",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tdouillard/shared-style-lib.git"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "files": [
+    "gouache"
+  ],
+  "exports": {
+    "./gouache": "./gouache/src/index.ts",
+    "./gouache/react": "./gouache/src/react/index.ts",
+    "./gouache/styles.css": "./gouache/src/css/index.css",
+    "./gouache/tokens.css": "./gouache/src/css/tokens.css",
+    "./gouache/src/*": "./gouache/src/*",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "typecheck": "tsc -p ."
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "react": "^19.3.1",
+    "typescript": "^7.0.2"
+  }
+}
